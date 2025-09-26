@@ -9,7 +9,7 @@
 
 文字翻译支持 `微软翻译|Google翻译|百度翻译|腾讯翻译|ChatGPT|AzureAI|Gemini|DeepSeek|claude|DeepL|DeepLX|字节火山|离线翻译OTT|自定义API等`
 
-文字合成语音支持 `Edge tts` `Google tts` `Azure AI TTS` `Openai TTS` `Elevenlabs TTS` `自定义TTS服务器api` `GPT-SoVITS` `F5-TTS` `Index-tts` `ChatterBox` `Gemini-tts` [clone-voice](https://github.com/jianchang512/clone-voice)  [ChatTTS-ui](https://github.com/jianchang512/ChatTTS-ui)  [Fish TTS](https://github.com/fishaudio/fish-speech)  [CosyVoice](https://github.com/FunAudioLLM/CosyVoice) 
+文字合成语音支持 `Edge tts` `Google tts` `Azure AI TTS` `Openai TTS` `Elevenlabs TTS` `自定义TTS服务器api` `GPT-SoVITS` `F5-TTS` `Index-tts/Index-tts2` `ChatterBox` `Gemini-tts` [clone-voice](https://github.com/jianchang512/clone-voice)  [ChatTTS-ui](https://github.com/jianchang512/ChatTTS-ui)  [Fish TTS](https://github.com/fishaudio/fish-speech)  [CosyVoice](https://github.com/FunAudioLLM/CosyVoice)
 
 允许保留背景伴奏音乐等(基于uvr5)
 
@@ -52,6 +52,8 @@
 ![pyvideotrans-home](https://github.com/user-attachments/assets/b2f95a7f-b4e5-4a6d-b2a5-eb6cd22531e0)
 
 [![Open In Colab](https://img.shields.io/badge/Colab-F9AB00?style=for-the-badge&logo=googlecolab&color=525252)](https://colab.research.google.com/drive/1kPTeAMz3LnWRnGmabcz4AWW42hiehmfm?usp=sharing)
+
+- [Google Colab Speech-to-Speech 指南](docs/google_colab_s2s.md)
 
 ## 预打包版本(仅win10/win11可用，MacOS/Linux系统使用源码部署)
 
