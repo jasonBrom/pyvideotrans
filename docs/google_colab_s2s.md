@@ -118,6 +118,17 @@ print(demo)
 - `/update_prompt_audio`：刷新默认参考音频；
 - `/gen_single`：执行实际合成（pyVideoTrans 默认调用此接口）。
 
+若希望在纯粹的 `gradio_client` 流程中完成识别、翻译、参考裁剪与 Index-TTS2 调用，可直接打开 `notebooks/colab_index_tts2_s2s.ipynb`。该 Notebook 会自动：
+
+1. 安装 `faster-whisper`、`librosa` 等依赖；
+2. 将视频/音频转换为标准 16 kHz 单声道 WAV；
+3. 使用 Whisper 模型识别并翻译文本；
+4. 从原声中裁剪 ≤10 秒的 timbre 参考；
+5. 解析 Index-TTS2 的 Gradio Schema 并拼装调用参数；
+6. 通过 `gradio_client` 下载合成结果并在 Colab 中回放。
+
+这份脚本化方案非常适合作为 pyVideoTrans 之外的备选实现，或在接入前验证自建 WebUI 的兼容性。
+
 ### 3. 接入自建或改造后的 TTS 服务
 
 如果你在 Index-TTS2 的基础上扩展了自定义接口，只需公开一个包含「文本输入 + 至少一个参考音频」的 Gradio Endpoint。pyVideoTrans 会自动读取 API Schema 并映射必要字段。常见场景：
