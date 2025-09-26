@@ -25,6 +25,7 @@ class F5TTS(BaseTTS):
     def __post_init__(self):
         super().__post_init__()
         self._index2_endpoint_cache: Optional[Tuple[Optional[str], Optional[int], List[Dict[str, Union[str, Dict]]]]] = None
+        self._index2_ref_short_cache: Dict[str, str] = {}
         self.copydata = copy.deepcopy(self.queue_tts)
         api_url = config.params['f5tts_url'].strip().rstrip('/').lower()
         self.api_url = f'http://{api_url}' if not api_url.startswith('http') else api_url
@@ -356,6 +357,64 @@ class F5TTS(BaseTTS):
 
         return args
 
+    def _prepare_index2_reference(self, ref_wav: str) -> str:
+        """Return a trimmed reference clip suitable for Index-TTS2."""
+        if not ref_wav:
+            return ref_wav
+
+        ref_path = Path(ref_wav)
+        if not ref_path.exists():
+            return ref_wav
+
+        cache = self._index2_ref_short_cache.get(ref_wav)
+        if cache and Path(cache).exists():
+            return cache
+
+        max_seconds = config.settings.get('index_tts2_ref_seconds', 8)
+        try:
+            max_seconds = float(max_seconds)
+        except Exception:
+            max_seconds = 8.0
+        max_seconds = max(1.0, min(max_seconds, 30.0))
+
+        try:
+            duration = tools.get_audio_time(ref_path.as_posix())
+        except Exception:
+            duration = None
+
+        if duration is None or duration <= max_seconds + 0.1:
+            return ref_wav
+
+        cache_dir = Path(config.TEMP_DIR) / 'index2_refs'
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        short_name = f"{tools.get_md5(ref_path.as_posix())}-{int(max_seconds)}s.wav"
+        short_path = cache_dir / short_name
+
+        if short_path.exists():
+            self._index2_ref_short_cache[ref_wav] = short_path.as_posix()
+            return short_path.as_posix()
+
+        end_time = min(duration, max_seconds)
+        if end_time <= 0:
+            return ref_wav
+
+        try:
+            tools.cut_from_audio(
+                audio_file=ref_path.as_posix(),
+                ss=0,
+                to=end_time,
+                out_file=short_path.as_posix()
+            )
+        except Exception as exc:
+            config.logger.warning(f'Failed to trim Index-TTS2 reference audio: {exc}')
+            return ref_wav
+
+        if short_path.exists():
+            self._index2_ref_short_cache[ref_wav] = short_path.as_posix()
+            return short_path.as_posix()
+
+        return ref_wav
+
     def _item_task_index2(self, data_item: Union[Dict, List, None]):
 
         speed = 1.0
@@ -383,11 +442,12 @@ class F5TTS(BaseTTS):
         except Exception as e:
             raise StopRetry(str(e))
 
+        ref_wav = self._prepare_index2_reference(data['ref_wav'])
         api_name, fn_index, parameters = self._resolve_index2_endpoint(client)
         args = self._build_index2_arguments(
             parameters=parameters,
             text=text,
-            ref_wav=data['ref_wav'],
+            ref_wav=ref_wav,
             ref_text=data_item.get('ref_text', ''),
             language_code=self.language,
             speed=speed
