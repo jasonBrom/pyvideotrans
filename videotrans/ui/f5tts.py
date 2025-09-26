@@ -27,9 +27,9 @@ class Ui_f5ttsform(object):
         v1.addWidget(label0)
         self.ttstype = QtWidgets.QComboBox(f5ttsform)
         self.ttstype.setMinimumSize(QtCore.QSize(100, 30))
-        self.ttstype.addItems(['F5-TTS', 'Spark-TTS', 'Index-TTS', 'Dia-TTS'])
+        self.ttstype.addItems(['F5-TTS', 'Spark-TTS', 'Index-TTS', 'Index-TTS2', 'Dia-TTS'])
         self.ttstype.setToolTip(
-            '选择使用的TTS服务，支持F5-TTS/Spart-TTS/index-TTS 的官方webui服务' if config.defaulelang == 'zh' else 'Select the TTS service to use, support the official webui service of F5-TTS/Spart-TTS/index-TTS/Dia-TTS')
+            '选择使用的TTS服务，支持F5-TTS/Spark-TTS/index-TTS/index-TTS2/Dia-TTS 官方 webui 服务' if config.defaulelang == 'zh' else 'Select the TTS service to use. Official webui instances of F5-TTS/Spark-TTS/index-TTS/index-TTS2/Dia-TTS are supported')
 
         self.label = QLabel(f5ttsform)
         self.label.setObjectName("label")
@@ -105,9 +105,9 @@ class Ui_f5ttsform(object):
 
     def retranslateUi(self, f5ttsform):
         tips = """
-从本软件 v3.68 版本起，只支持使用官方的webui(F5-TTS/Spart-TTS/index-TTS/Dia-TTS)，不再支持三方整合包和api
+从本软件 v3.68 版本起，只支持使用官方的 webui(F5-TTS/Spark-TTS/index-TTS/index-TTS2/Dia-TTS)，不再支持三方整合包和 API
 """ if config.defaulelang == 'zh' else """
-Starting from version 3.68 of this software, only the official webui is supported (F5-TTS/Spart-TTS/index-TTS/Dia-TTS), and third-party integration packages and APIs are no longer supported.
+Starting from version 3.68 of this software, only the official webui endpoints are supported (F5-TTS/Spark-TTS/index-TTS/index-TTS2/Dia-TTS). Third-party integration bundles and APIs are no longer supported.
 """
 
         f5ttsform.setWindowTitle("F5-TTS/Spart-TTS/index-TTS/Dia-TTS")
