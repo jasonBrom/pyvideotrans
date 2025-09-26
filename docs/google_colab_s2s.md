@@ -13,8 +13,8 @@
 
 仓库提供了两份现成的 Notebook（点击徽章可直接在 Colab 中打开）：
 
-- `notebooks/colab_speech_to_speech.ipynb`：英文讲解版。[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jianchang512/pyvideotrans/blob/main/notebooks/colab_speech_to_speech.ipynb)
-- `notebooks/colab_speech_to_speech_zh.ipynb`：全新中文讲解版，便于培训或与团队分享。[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jianchang512/pyvideotrans/blob/main/notebooks/colab_speech_to_speech_zh.ipynb)
+- `notebooks/colab_speech_to_speech.ipynb`：英文讲解版。[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jasonBrom/pyvideotrans/blob/main/notebooks/colab_speech_to_speech.ipynb)
+- `notebooks/colab_speech_to_speech_zh.ipynb`：全新中文讲解版，便于培训或与团队分享。[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jasonBrom/pyvideotrans/blob/main/notebooks/colab_speech_to_speech_zh.ipynb)
 
 在 Colab 中按照以下步骤运行：
 
